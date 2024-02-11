@@ -15,7 +15,7 @@ export function Menu(){
           <a className="nav-link active" aria-current="page" href="/productos">Productos</a>
         </li>
          <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="/contador">Contador</a>
+          <a className="nav-link active" aria-current="page" href="/nuevo">Nuevo</a>
         </li>
         <li className="nav-item">
           <a className="nav-link active" aria-current="page" href="/texto">Texto</a>
