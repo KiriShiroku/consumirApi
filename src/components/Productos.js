@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import { URL_API, URL_IMAGES } from "../config/rutas";
 
 export function Productos(){
     const [dataProductos, setDataProductos]=useState([]);
 
 
 useEffect(()=>{
-    axios.get("https://apiconsumible-hl55.onrender.com/api/productos/mostrarproductos")
-    .then((respuesta)=>{
-        console.log(respuesta);
-        setDataProductos(respuesta.data);
-    })
-    .catch((err)=>{
-        console.log("Error al recuperar el api"+err);
-    })
-}, []);
+    axios.get(URL_API+"/productos/mostrarProductos")
+    .then((response)=>{
+        setDataProductos(response.data);
+        })
+        .catch((error)=>{
+            console.log(error);
+        });
+    }, []);
 
 const listaProductos=dataProductos.map((producto)=>{
-    var Editar="/Editar/"+producto.id;
-    var Borrar="/Borrar/"+producto.id;
-    var foto="https://apiconsumible-hl55.onrender.com/images/"+producto.foto;
+    var Editar="/editarPr/"+producto.id;
+    var Borrar="/borrarPr/"+producto.id;
+    var foto=URL_IMAGES+producto.foto;
 
     return(
         <tr key={producto.id}>
@@ -30,8 +30,8 @@ const listaProductos=dataProductos.map((producto)=>{
                 <td>{producto.desc}</td>
                 <td><img src={foto} width="100 px" /></td>
                 <td>
-                    <NavLink to="">Editar</NavLink>
-                    <NavLink to="">Borrar</NavLink>
+                    <NavLink to={Editar}>Editar / </NavLink>
+                    <NavLink to={Borrar}>Borrar</NavLink>
                 </td>
         </tr>
     );
@@ -39,21 +39,31 @@ const listaProductos=dataProductos.map((producto)=>{
 });
 
 return(
-    <table className="table table-hover">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>nombre</th>
-                <th>precio</th>
-                <th>desc</th>
-                <th>foto</th>
-                <th>Editar / Borrar</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            {listaProductos}
-        </tbody>
-    </table>
-);
+    <div className="container mt-5">
+        <div className="container">
+            <div className="card">
+                <div className="card-header">
+                    <h1>Lista de productos</h1>
+                </div>
+                <div className="card-body">
+                    <table className="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>nombre</th>
+                                <th>precio</th>
+                                <th>desc</th>
+                                <th>foto</th>
+                                <th>Editar / Borrar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {listaProductos}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+)
 }

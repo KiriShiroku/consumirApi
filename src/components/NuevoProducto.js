@@ -1,48 +1,51 @@
+import { URL_API_PRODUCTOS } from "../config/rutas";
 import axios from "axios";
 import { useState } from "react";
-import { URL_API } from "../config/rutas";
 
-export function NuevoUsuario(){
-    const [nombre, setNombre]=useState("");
-    const [usuario, setUsuario]=useState("");
-    const [password, setPassword]=useState("");
-    const [foto, setFoto]=useState(null);
-    const [mensaje, setMensaje]=useState("");
+export function NuevoProducto() {
+
+    const [mensaje, setMensaje] = useState("");
+    const [nombre, setNombre] = useState("");
+    const [precio, setPrecio] = useState("");
+    const [desc, setDesc] = useState("");
+    const [foto, setFoto] = useState(null);
+
     async function guardarDatos(e){
         e.preventDefault();
         const formData = new FormData();
         formData.append("nombre", nombre);
-        formData.append("usuario", usuario);
-        formData.append("password", password);
+        formData.append("precio", precio);
+        formData.append("desc", desc);
         formData.append("foto", foto);
         console.log(formData);
-        const res = await axios.post( URL_API + "/nuevousuario", formData,{
+        const res = await axios.post( URL_API_PRODUCTOS + "/nuevoproducto", formData,{
             headers: {
                 "Content-Type": "multipart/form-data"
             }
         });
         console.log(res);
         setNombre("");
-        setUsuario("");
-        setPassword("");
+        setPrecio("");
+        setDesc("");
         setFoto(null);
         setMensaje(res.data);
         setTimeout(() => {
             setMensaje("");
         }, 3000);
     }
-    return(
+
+    return (
         <div className="container mt-5">
             <div className="text-danger"><h2>{mensaje}</h2></div>
             <form onSubmit={guardarDatos}>
                 <div className="card">
                     <div className="card-header">
-                        <h1>Registro de usuario</h1>
+                        <h1>Registro de producto</h1>
                     </div>
                     <div className="card-body">
-                        <input className="form-control mb-3" type="text" name="nombre" id="nombre" placeholder="Nombre" autoFocus onChange={(e)=>setNombre(e.target.value)}></input>
-                        <input className="form-control mb-3" type="text" name="usuario" id="usuario" placeholder="Usuario" onChange={(e)=>setUsuario(e.target.value)} ></input>
-                        <input className="form-control mb-3" type="password" name="password" id="password" placeholder="Contraseña" onChange={(e)=>setPassword(e.target.value)} ></input>
+                        <input className="form-control mb-3" type="text" name="nombre" id="nombre" placeholder="Nombre" autoFocus onChange={(e)=>setNombre(e.target.value)} ></input>
+                        <input className="form-control mb-3" type="text" name="precio" id="precio" placeholder="Precio" onChange={(e)=>setPrecio(e.target.value)}></input>
+                        <input className="form-control mb-3" type="text" name="desc" id="desc" placeholder="Desc" onChange={(e)=>setDesc(e.target.value)}></input>
                         <input className="form-control mb-3" type="file" name="foto" id="foto" placeholder="Foto" onChange={(e)=>setFoto(e.target.files[0])}></input>
                     </div>
                     <div className="card-footer">

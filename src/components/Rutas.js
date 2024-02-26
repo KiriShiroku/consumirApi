@@ -1,22 +1,32 @@
-import { BrowserRouter,Route,Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Error } from "./Error";
 import { Inicio } from "./Inicio";
 import { Menu } from "./Menu";
 import { Productos } from "./Productos";
-import { Nuevo } from "./Nuevo";
+import { NuevoUsuario } from "./Nuevo";
+import { NuevoProducto } from "./NuevoProducto";
+import { EditarUsuario } from "./EditarUsuario";
+import { EditarProducto } from "./EditarProducto";
+import { BorrarProducto } from "./BorrarProducto";
+import { BorrarUsuario } from "./BorrarUsuario";
 
-export function Rutas(){
-    return(
+export function Rutas() {
+    return (
         <>
-        <Menu />
-        <BrowserRouter>
-            <Routes>
-                <Route path="*" element={<Error />}></Route>
-                <Route path="/" element={<Inicio />}></Route>
-                <Route path="/productos" element={<Productos/>}></Route>
-                <Route path="/Nuevo" element={<Nuevo></Nuevo>}></Route>
-               </Routes>
-        </BrowserRouter>        
+        <Menu/>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="*" element={<Error />}></Route>
+                    <Route path="/" element={<Inicio />}></Route>
+                    <Route path="/productos" element={<Productos />}></Route>
+                    <Route path="/nuevo" element={<NuevoUsuario />}></Route>
+                    <Route path="/nuevoProducto" element={<NuevoProducto />}></Route>
+                    <Route path="/editar/:id" element={<EditarUsuario />}></Route>
+                    <Route path="/borrar/:id" element={<BorrarUsuario />}></Route>
+                    <Route path="/editarPr/:id" element={<EditarProducto />}></Route>
+                    <Route path="/borrarPr/:id" element={<BorrarProducto />}></Route>
+                </Routes>
+            </BrowserRouter>
         </>
     );
 }
